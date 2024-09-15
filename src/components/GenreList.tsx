@@ -5,9 +5,10 @@ import { link } from "fs";
 
 interface Props {
    onSelectedGenre : (genre : Genre) => void
+   selectedGenre : Genre | null
 }
 
-export default function GenreList( {onSelectedGenre} : Props) {
+export default function GenreList( {selectedGenre, onSelectedGenre} : Props) {
   const { data, error, isLoading } = useGenres();
 
   if (isLoading) return <Spinner />;
@@ -23,7 +24,7 @@ export default function GenreList( {onSelectedGenre} : Props) {
               borderRadius={8}
               src={getCroppedImageUrl(genre.image_background)}
             />
-            <Button onClick={() => console.log(genre)} fontSize='lg' variant='link'>{genre.name}</Button>
+            <Button fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'} onClick={() => console.log(genre)} fontSize='lg' variant='link'>{genre.name}</Button>
           </HStack>
         </ListItem>
       ))}
